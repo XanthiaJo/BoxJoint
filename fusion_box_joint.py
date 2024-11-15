@@ -26,15 +26,15 @@ class BoxJointParameters:
 	maxFingers: Parameter = field(
 		default_factory=lambda: Parameter(33))
 	minFingerWidth: Parameter = field(
-		default_factory=lambda: Parameter.length(centimeters=cmOrIn(2.5, 1)))  # 2.5cm or 1"
+		default_factory=lambda: Parameter.length(centimeters=cmOrIn(1, 0.4)))  # 1cm or 0.4"
 	maxFingerWidth: Parameter = field(
-		default_factory=lambda: Parameter.length(centimeters=cmOrIn(15, 6)))  # 15cm or 6"
+		default_factory=lambda: Parameter.length(centimeters=cmOrIn(3, 1.2)))  # 3cm or 1.2"
 	fingerRatio: Parameter = field(
 		default_factory=lambda: Parameter(0.5))
 	margin: Parameter = field(
 		default_factory=lambda: Parameter.length(centimeters=0))
 	bitDiameter: Parameter = field(
-		default_factory=lambda: Parameter.length(centimeters=0.635))  # 1/4"
+		default_factory=lambda: Parameter.length(centimeters=0))  # 1/4"
 
 
 class BoxJointAddIn(FusionCustomFeatureAddIn):
@@ -495,59 +495,59 @@ def computeBoxJoint(params: BoxJointParameters) -> BaseCombines:
 			fingerACutter = finger
 			fingerBJoiner = tempBrepMgr.copy(finger)
 
-			# Add rounded inside corners to the fingers on body B.
-			coveCrossSection = createFaceFromCurves([
-				adsk.core.Arc3D.createByCenter(
-					center=pBcDown,
-					normal=vOBPerp,
-					referenceVector=vOB,
-					radius=bitRadius,
-					startAngle=0,
-					endAngle=0.5 * math.pi),
-				adsk.core.Arc3D.createByCenter(
-					center=pBcUp,
-					normal=vOBPerp,
-					referenceVector=vOB,
-					radius=bitRadius,
-					startAngle=1.5 * math.pi,
-					endAngle=0),
-				adsk.core.Line3D.create(pBeUp, pBeDown),
-			])
-			cove = createObliquePrism(coveCrossSection, vBeIbe)
-			tempBrepMgr.booleanOperation(fingerACutter, cove, adsk.fusion.BooleanTypes.UnionBooleanType)
-			tempBrepMgr.transform(cove, translateUp)
-			tempBrepMgr.booleanOperation(fingerACutter, cove, adsk.fusion.BooleanTypes.UnionBooleanType)
-			cove = createObliquePrism(coveCrossSection, vBcIc)
-			tempBrepMgr.booleanOperation(fingerBJoiner, cove, adsk.fusion.BooleanTypes.UnionBooleanType)
-			tempBrepMgr.transform(cove, translateUp)
-			tempBrepMgr.booleanOperation(fingerBJoiner, cove, adsk.fusion.BooleanTypes.UnionBooleanType)
+			# # Add rounded inside corners to the fingers on body B.
+			# coveCrossSection = createFaceFromCurves([
+				# adsk.core.Arc3D.createByCenter(
+					# center=pBcDown,
+					# normal=vOBPerp,
+					# referenceVector=vOB,
+					# radius=bitRadius,
+					# startAngle=0,
+					# endAngle=0.5 * math.pi),
+				# adsk.core.Arc3D.createByCenter(
+					# center=pBcUp,
+					# normal=vOBPerp,
+					# referenceVector=vOB,
+					# radius=bitRadius,
+					# startAngle=1.5 * math.pi,
+					# endAngle=0),
+				# adsk.core.Line3D.create(pBeUp, pBeDown),
+			# ])
+			# cove = createObliquePrism(coveCrossSection, vBeIbe)
+			# tempBrepMgr.booleanOperation(fingerACutter, cove, adsk.fusion.BooleanTypes.UnionBooleanType)
+			# tempBrepMgr.transform(cove, translateUp)
+			# tempBrepMgr.booleanOperation(fingerACutter, cove, adsk.fusion.BooleanTypes.UnionBooleanType)
+			# cove = createObliquePrism(coveCrossSection, vBcIc)
+			# tempBrepMgr.booleanOperation(fingerBJoiner, cove, adsk.fusion.BooleanTypes.UnionBooleanType)
+			# tempBrepMgr.transform(cove, translateUp)
+			# tempBrepMgr.booleanOperation(fingerBJoiner, cove, adsk.fusion.BooleanTypes.UnionBooleanType)
 
-			# Add rounded inside corners to the fingers on body A.
-			coveCrossSection = createFaceFromCurves([
-				adsk.core.Arc3D.createByCenter(
-					center=pAcUp,
-					normal=vOAPerp,
-					referenceVector=vOA,
-					radius=bitRadius,
-					startAngle=0,
-					endAngle=0.5 * math.pi),
-				adsk.core.Arc3D.createByCenter(
-					center=pAcDown,
-					normal=vOAPerp,
-					referenceVector=vOA,
-					radius=bitRadius,
-					startAngle=1.5 * math.pi,
-					endAngle=0),
-				adsk.core.Line3D.create(pAeDown, pAeUp),
-			])
-			cove = createObliquePrism(coveCrossSection, vAcIc)
-			tempBrepMgr.booleanOperation(fingerACutter, cove, adsk.fusion.BooleanTypes.DifferenceBooleanType)
-			tempBrepMgr.transform(cove, translateUp)
-			tempBrepMgr.booleanOperation(fingerACutter, cove, adsk.fusion.BooleanTypes.DifferenceBooleanType)
-			cove = createObliquePrism(coveCrossSection, vAeIae)
-			tempBrepMgr.booleanOperation(fingerBJoiner, cove, adsk.fusion.BooleanTypes.DifferenceBooleanType)
-			tempBrepMgr.transform(cove, translateUp)
-			tempBrepMgr.booleanOperation(fingerBJoiner, cove, adsk.fusion.BooleanTypes.DifferenceBooleanType)
+			# # Add rounded inside corners to the fingers on body A.
+			# coveCrossSection = createFaceFromCurves([
+				# adsk.core.Arc3D.createByCenter(
+					# center=pAcUp,
+					# normal=vOAPerp,
+					# referenceVector=vOA,
+					# radius=bitRadius,
+					# startAngle=0,
+					# endAngle=0.5 * math.pi),
+				# adsk.core.Arc3D.createByCenter(
+					# center=pAcDown,
+					# normal=vOAPerp,
+					# referenceVector=vOA,
+					# radius=bitRadius,
+					# startAngle=1.5 * math.pi,
+					# endAngle=0),
+				# adsk.core.Line3D.create(pAeDown, pAeUp),
+			# ])
+			# cove = createObliquePrism(coveCrossSection, vAcIc)
+			# tempBrepMgr.booleanOperation(fingerACutter, cove, adsk.fusion.BooleanTypes.DifferenceBooleanType)
+			# tempBrepMgr.transform(cove, translateUp)
+			# tempBrepMgr.booleanOperation(fingerACutter, cove, adsk.fusion.BooleanTypes.DifferenceBooleanType)
+			# cove = createObliquePrism(coveCrossSection, vAeIae)
+			# tempBrepMgr.booleanOperation(fingerBJoiner, cove, adsk.fusion.BooleanTypes.DifferenceBooleanType)
+			# tempBrepMgr.transform(cove, translateUp)
+			# tempBrepMgr.booleanOperation(fingerBJoiner, cove, adsk.fusion.BooleanTypes.DifferenceBooleanType)
 
 			# Add dog bones (T-bones) on the inside face of body A.
 			dogBoneCrossSection = createFaceFromCurves([
