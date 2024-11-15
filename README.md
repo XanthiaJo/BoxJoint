@@ -1,3 +1,8 @@
+## Laser cut freindly change
+
+All that is different to the orignal is the code that creates the rounded backs has been commented out. Also the default values have been altared to be more inline with using 3mm wood.
+
+
 # Box Joint
 
 This is an [Autodesk Fusion 360](https://www.autodesk.com/products/fusion-360/overview) [Add-In](https://apps.autodesk.com/FUSION/en/Detail/Index?id=3675336968156301217) for creating CNC friendly box/finger joints.
